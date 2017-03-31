@@ -1,0 +1,71 @@
+html, body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+body {
+	font-family: 'Open Sans', serif;
+	font-size: 16px;
+	font-weight: 400;
+	color: #666666;
+}
+.container {
+	min-height: 100%;
+	position: relative;
+}
+h2 { 
+	font-size: 20px;
+	font-weight: 400;
+	text-transform: uppercase;
+	color: #001871; 
+}
+h2 span {
+	font-weight: 700;
+}
+h3 { 
+	font-size: 18px;
+	font-weight: 700;
+	text-transform: uppercase;
+	color: #001871; 
+}
+h4 {
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 1.0rem;
+}
+table { width: 100%; }
+table th, table td {
+	border: none;
+}
+table thead tr th:first-child { width: 10%; }
+
+table thead tr th {
+	font-size: 1.5em;
+	font-weight: 600;
+	text-align: center;
+}
+table thead tr th .sub-header {
+	font-size: 1em;
+	font-weight: 600;
+	text-align: left;
+}
+table tbody tr td {
+	text-align: center;
+}
+.top-block {
+	float: left;
+	width: 100%;
+}
+.top-block .unit {
+	width: 23%;
+	padding: 0;
+	margin-left: 0.5em;
+	float: left;
+}
+.top-block:after, .unit:after {
+	clear: both;
+	content: "";
+}
+footer {
+	margin-top: 1em;
+}

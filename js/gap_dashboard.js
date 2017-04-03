@@ -25,15 +25,22 @@ $(document).ready(function(){
             alert(clone.attributes[1].attributeValues[1].label);
         })
         $(".select-attribute").on("change", function(){
-            var otherId = "attribute2";
-            attributeChanged(, otherId);
-        })
-        $("#attribute2").on("change", function(){
-            var otherId = "attribute1";
+            var otherId = ($(this).attr("id") == "attribute1") ? "attribute2" : "attribute1";
             attributeChanged($(this).attr("id"), otherId);
         })
         function attributeChanged(id, otherId){
-
+            if($("#" + id).val() != "" && $("#" + otherId).val() == ""){
+                // alert("other id is empty");
+                // alert($("#" + id).val());
+                var collection = $("#AddRowButton").data("collection");
+                var attributeId = collection.getAttributeByAttributeValue($("#" + id).val());                
+                var html = collection.getHtmlOptionsIncluding([attributeId]);
+                $("#" + otherId).html(html);
+            }else if($("#" + id).val() == "" && $("#" + otherId).val() == ""){
+                var collection = $("#AddRowButton").data("collection");
+                var html = collection.getHtmlOptionsExcluding(["jurisdiction", "grade"]);
+                $("#" + otherId).html(html);
+            }
         }
     }
 })
@@ -50,16 +57,8 @@ function AttributeCollection(serializedAttributes){
         }
     }
 
-    this.addAttribute = function(attribute){
-        //this.attributes[] = attribute;
-    }
-
-    this.selectAttributeValue = function(attributeValueId){
-
-    }
-
     this.getHtmlOptionsIncluding = function(includedAttributeValues){
-        var html = "<option>Choose</option>";
+        var html = "<option value=''>Choose</option>";
         for(var i = 0; i < this.attributes.length; i++){
             var attribute = this.attributes[i];
             if(attribute.isInArray(includedAttributeValues)){
@@ -74,7 +73,7 @@ function AttributeCollection(serializedAttributes){
     }
 
     this.getHtmlOptionsExcluding = function(unincludedAttributeValues){
-        var html = "<option>Choose</option>";
+        var html = "<option value=''>Choose</option>";
         for(var i = 0; i < this.attributes.length; i++){
             var attribute = this.attributes[i];
             if(!attribute.isInArray(unincludedAttributeValues)){
@@ -102,7 +101,16 @@ function AttributeCollection(serializedAttributes){
     }
 
     this.getAttributeByAttributeValue = function(attributeValueId){
-
+        for(var i = 0; i < this.attributes.length; i++){
+            var attribute = this.attributes[i];            
+            for(var j = 0; j < attribute.attributeValues.length; j++){
+                var attributeValue = attribute.attributeValues[j];                
+                if(attributeValue.id == attributeValueId){
+                    return attribute.id;
+                }
+            }
+        }
+        return null;
     }
 
     this.getAttributeValues = function(attirbuteId){

@@ -21,7 +21,20 @@ $(document).ready(function(){
     function loadEvents(){
         $("#AddRowButton").click(function(){
             var clone = $(this).data("collection").getClone();
+            alert(clone.attributes[1].id);
+            alert(clone.attributes[1].attributeValues[1].label);
         })
+        $(".select-attribute").on("change", function(){
+            var otherId = "attribute2";
+            attributeChanged(, otherId);
+        })
+        $("#attribute2").on("change", function(){
+            var otherId = "attribute1";
+            attributeChanged($(this).attr("id"), otherId);
+        })
+        function attributeChanged(id, otherId){
+
+        }
     }
 })
 

@@ -40,8 +40,8 @@ $(document).ready(function(){
             var collection = $("#AddRowButton").data("collection");
             if($("#" + id).val() != "" && $("#" + otherId).val() == ""){                
                 var attributeId = collection.getAttributeByAttributeValue($("#" + id).val());                
-                var html = collection.getHtmlOptionsIncluding([attributeId]);
-            }else if($("#" + id).val() == "" && $("#" + otherId).val() == ""){
+                var html = collection.getHtmlOptionsIncluding([attributeId], [$("#" + id).val()]);
+            }else if($("#" + id).val() == "" && $("#" + otherId).val() == ""){                
                 var html = collection.getHtmlOptionsExcluding(["jurisdiction", "grade"]);
             }
             $("#" + otherId).html(html);           
@@ -61,7 +61,7 @@ function AttributeCollection(serializedAttributes){
         }
     }
 
-    this.getHtmlOptionsIncluding = function(includedAttributeValues){
+    this.getHtmlOptionsIncluding = function(includedAttributeValues, excludedAttributeValues){
         var html = "<option value=''>Choose</option>";
         for(var i = 0; i < this.attributes.length; i++){
             var attribute = this.attributes[i];
@@ -69,7 +69,9 @@ function AttributeCollection(serializedAttributes){
                 html += "<optgroup label = '" + this.attributes[i].label + "'>";   
                 for(var j = 0; j < this.attributes[i].attributeValues.length; j++){
                     var attributeValue = this.attributes[i].attributeValues[j];
-                    html += "<option value = '" + attributeValue.id + "'>" + attributeValue.label + "</option>"
+                    if(!attributeValue.isInArray(excludedAttributeValues)){
+                        html += "<option value = '" + attributeValue.id + "'>" + attributeValue.label + "</option>"
+                    }
                 }
             }
         }
@@ -84,7 +86,9 @@ function AttributeCollection(serializedAttributes){
                 html += "<optgroup label = '" + this.attributes[i].label + "'>";   
                 for(var j = 0; j < this.attributes[i].attributeValues.length; j++){
                     var attributeValue = this.attributes[i].attributeValues[j];
-                    html += "<option value = '" + attributeValue.id + "'>" + attributeValue.label + "</option>"
+                    if(!attributeValue.isInArray(unincludedAttributeValues)){
+                        html += "<option value = '" + attributeValue.id + "'>" + attributeValue.label + "</option>"
+                    }
                 }
             }
         }
@@ -133,6 +137,7 @@ function Attribute(id, label){
     this.attributeValues = [];
 
     this.isInArray = function(array){
+        if(!array) return;
         for(var i = 0; i < array.length; i++){
             if(this.id == array[i]) return true;
         }
@@ -172,6 +177,7 @@ function AttributeValue(id, label){
     this.selected = false;
 
     this.isInArray = function(array){
+        if(!array) return;
         for(var i = 0; i < array.length; i++){
             if(this.id == array[i]) return true;
         }

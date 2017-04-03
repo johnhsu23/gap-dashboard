@@ -36,6 +36,7 @@ h4 {
 table { width: 100%; }
 table th, table td {
 	border: none;
+	width: 23%;
 }
 table thead tr th {
 	font-size: 1.5em;

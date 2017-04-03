@@ -8,7 +8,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link href="//fonts.googleapis.com/css?family=O:400,300,600" rel="stylesheet" type="text/css">
+  <!--<link href="//fonts.googleapis.com/css?family=O:400,300,600" rel="stylesheet" type="text/css">-->
   
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/skeleton.css">
@@ -30,38 +30,37 @@
       <div class="top-block">
         <div class="unit">
           <label for="exampleRecipientInput">Jurisdiction</label>
-          <select class="u-full-width" id="exampleRecipientInput">
-            <option value="Option 1">Option 1</option>
-            <option value="Option 2">Option 2</option>
-            <option value="Option 3">Option 3</option>
+          <select class="u-full-width" id="jurisdiction">
+            <option value="nationalPublic">National Public</option>
+            <option value="alabama">Alabmama</option>
+            <option value="alaska">Alaska</option>
           </select>
         </div>
         <div class="unit">
           <label for="exampleRecipientInput">Group 1</label>
-          <select class="u-full-width" id="exampleRecipientInput">
-            <option value="Option 1">Option 1</option>
-            <option value="Option 2">Option 2</option>
-            <option value="Option 3">Option 3</option>
+          <select class="u-full-width" id="attribute1">
+            <optgroup label="Gender">
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </optgroup>
+            <optgroup label="Race">
+              <option value="white">White</option>
+            </optgroup>
           </select>
         </div>
         <div class="unit">
           <label for="exampleRecipientInput">Group 2</label>
-          <select class="u-full-width" id="exampleRecipientInput">
+          <select class="u-full-width" id="attribute2">
             <option value="Option 1">Option 1</option>
             <option value="Option 2">Option 2</option>
             <option value="Option 3">Option 3</option>
           </select>
         </div>
         <div class="unit">
-          <label for="exampleRecipientInput">Group 3</label>
-          <select class="u-full-width" id="exampleRecipientInput">
-            <option value="Option 1">Option 1</option>
-            <option value="Option 2">Option 2</option>
-            <option value="Option 3">Option 3</option>
-          </select>
+          <div id="AddRowButton">Add Row</div>
         </div>
       </div>
-      <table>
+      <table id="data-row">
         <thead>
           <tr>
             <th></th>
@@ -71,13 +70,20 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th>Detail 1</th>
+          <tr class="template">
+            <th>
+               <label for="exampleRecipientInput">Cross Tab</label>
+                <select class="u-full-width" id="exampleRecipientInput">
+                  <option value="Option 1">Option 1</option>
+                  <option value="Option 2">Option 2</option>
+                  <option value="Option 3">Option 3</option>
+                </select>
+            </th>
             <td><img src="images/ex-1.png" alt=""></td>
             <td><img src="images/ex-2.png" alt=""></td>
             <td><img src="images/ex-3.png" alt=""></td>
           </tr>
-          <tr>
+          <!--<tr>
             <th>Detail 2</th>
             <td><img src="images/ex-3.png" alt=""></td>
             <td><img src="images/ex-2.png" alt=""></td>
@@ -118,7 +124,7 @@
             <td><img src="images/ex-3.png" alt=""></td>
             <td><img src="images/ex-1.png" alt=""></td>
             <td><img src="images/ex-2.png" alt=""></td>
-          </tr>
+          </tr>-->
         </tbody>
       </table>
     </section>

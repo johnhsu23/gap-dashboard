@@ -55,7 +55,6 @@ table tbody tr td.full-length {
 }
 button.add-new {
 	background: #ccc;
-	color: #333;
 }
 .top-block {
 	float: left;
@@ -70,4 +69,10 @@ button.add-new {
 .top-block:after, .unit:after {
 	clear: both;
 	content: "";
+}
+
+/* skelton over rides */
+
+.column, .columns {
+    margin-left: 1%;
 }

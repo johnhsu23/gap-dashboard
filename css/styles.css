@@ -35,7 +35,6 @@ h4 {
 }
 table { width: 100%; }
 table th, table td {
-	border: none;
 	width: 23%;
 }
 table thead tr th {
@@ -65,7 +64,7 @@ button.add-new {
 .top-block .unit {
 	width: 23%;
 	padding: 0;
-	margin-left: 0.5em;
+	margin-left: 1em;
 	float: left;
 }
 .top-block:after, .unit:after {

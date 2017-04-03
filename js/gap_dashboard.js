@@ -21,26 +21,30 @@ $(document).ready(function(){
     function loadEvents(){
         $("#AddRowButton").click(function(){
             var clone = $(this).data("collection").getClone();
-            alert(clone.attributes[1].id);
-            alert(clone.attributes[1].attributeValues[1].label);
+            var $attribute1 = $("#attribute1");
+            var $attribute2 = $("#attribute2");
+            if($attribute1.val() != "" && $attribute2.val() != ""){
+                var html = "<tr>" + $(".template").html() + "</tr>";
+                $("#data-rows").append(html);
+                var collection = $("#AddRowButton").data("collection");
+                var attributeId = collection.getAttributeByAttributeValue($attribute1.val());                
+                html = collection.getHtmlOptionsExcluding(["jurisdiction", "grade", attributeId]);
+                $("#data-rows tr:last() .u-full-width").html(html);
+            }
         })
         $(".select-attribute").on("change", function(){
             var otherId = ($(this).attr("id") == "attribute1") ? "attribute2" : "attribute1";
             attributeChanged($(this).attr("id"), otherId);
         })
         function attributeChanged(id, otherId){
-            if($("#" + id).val() != "" && $("#" + otherId).val() == ""){
-                // alert("other id is empty");
-                // alert($("#" + id).val());
-                var collection = $("#AddRowButton").data("collection");
+            var collection = $("#AddRowButton").data("collection");
+            if($("#" + id).val() != "" && $("#" + otherId).val() == ""){                
                 var attributeId = collection.getAttributeByAttributeValue($("#" + id).val());                
-                var html = collection.getHtmlOptionsIncluding([attributeId]);
-                $("#" + otherId).html(html);
-            }else if($("#" + id).val() == "" && $("#" + otherId).val() == ""){
-                var collection = $("#AddRowButton").data("collection");
+                var html = collection.getHtmlOptionsIncluding([attributeId], [$("#" + id).val()]);
+            }else if($("#" + id).val() == "" && $("#" + otherId).val() == ""){                
                 var html = collection.getHtmlOptionsExcluding(["jurisdiction", "grade"]);
-                $("#" + otherId).html(html);
             }
+            $("#" + otherId).html(html);           
         }
     }
 })
@@ -57,7 +61,7 @@ function AttributeCollection(serializedAttributes){
         }
     }
 
-    this.getHtmlOptionsIncluding = function(includedAttributeValues){
+    this.getHtmlOptionsIncluding = function(includedAttributeValues, excludedAttributeValues){
         var html = "<option value=''>Choose</option>";
         for(var i = 0; i < this.attributes.length; i++){
             var attribute = this.attributes[i];
@@ -65,7 +69,9 @@ function AttributeCollection(serializedAttributes){
                 html += "<optgroup label = '" + this.attributes[i].label + "'>";   
                 for(var j = 0; j < this.attributes[i].attributeValues.length; j++){
                     var attributeValue = this.attributes[i].attributeValues[j];
-                    html += "<option value = '" + attributeValue.id + "'>" + attributeValue.label + "</option>"
+                    if(!attributeValue.isInArray(excludedAttributeValues)){
+                        html += "<option value = '" + attributeValue.id + "'>" + attributeValue.label + "</option>"
+                    }
                 }
             }
         }
@@ -80,7 +86,9 @@ function AttributeCollection(serializedAttributes){
                 html += "<optgroup label = '" + this.attributes[i].label + "'>";   
                 for(var j = 0; j < this.attributes[i].attributeValues.length; j++){
                     var attributeValue = this.attributes[i].attributeValues[j];
-                    html += "<option value = '" + attributeValue.id + "'>" + attributeValue.label + "</option>"
+                    if(!attributeValue.isInArray(unincludedAttributeValues)){
+                        html += "<option value = '" + attributeValue.id + "'>" + attributeValue.label + "</option>"
+                    }
                 }
             }
         }
@@ -129,6 +137,7 @@ function Attribute(id, label){
     this.attributeValues = [];
 
     this.isInArray = function(array){
+        if(!array) return;
         for(var i = 0; i < array.length; i++){
             if(this.id == array[i]) return true;
         }
@@ -168,6 +177,7 @@ function AttributeValue(id, label){
     this.selected = false;
 
     this.isInArray = function(array){
+        if(!array) return;
         for(var i = 0; i < array.length; i++){
             if(this.id == array[i]) return true;
         }

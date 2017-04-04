@@ -18,20 +18,7 @@ $(document).ready(function(){
         $("#attribute2").html(collection.getHtmlOptionsExcluding(["jurisdiction", "grade"]));
     }
 
-    function loadEvents(){
-        $("button.add-new").click(function(){
-            var clone = $(this).data("collection").getClone();
-            var $attribute1 = $("#attribute1");
-            var $attribute2 = $("#attribute2");
-            if($attribute1.val() != "" && $attribute2.val() != ""){
-                var html = "<tr>" + $(".template").html() + "</tr>";
-                $("#data-rows tr:last()").before(html);
-                var collection = $("button.add-new").data("collection");
-                var attributeId = collection.getAttributeByAttributeValue($attribute1.val());                
-                html = collection.getHtmlOptionsExcluding(["jurisdiction", "grade", attributeId]);
-                $("#data-rows tr:nth-last-child(2) .u-full-width").html(html);
-            }
-        })
+    function loadEvents(){        
         $(".select-attribute").on("change", function(){
             var otherId = ($(this).attr("id") == "attribute1") ? "attribute2" : "attribute1";
             attributeChanged($(this).attr("id"), otherId);
@@ -45,6 +32,27 @@ $(document).ready(function(){
                 var html = collection.getHtmlOptionsExcluding(["jurisdiction", "grade"]);
             }
             $("#" + otherId).html(html);           
+        }
+
+        $("button.add-new").click(function(){
+            var clone = $(this).data("collection").getClone();
+            var $attribute1 = $("#attribute1");
+            var $attribute2 = $("#attribute2");
+            if($attribute1.val() != "" && $attribute2.val() != ""){
+                var html = "<tr>" + $(".template").html() + "</tr>";
+                $("#data-rows tr:last()").before(html);
+                var collection = $("button.add-new").data("collection");
+                var attributeId = collection.getAttributeByAttributeValue($attribute1.val());                
+                html = collection.getHtmlOptionsExcluding(["jurisdiction", "grade", attributeId]);
+                $("#data-rows tr:nth-last-child(2) .u-full-width").html(html);
+                $("#data-rows tr:nth-last-child(2) .cross-tab").on("change", function(){                    
+                    $(this).parents("tr").find("td > img").show();
+                })
+            }
+        })
+
+        function crossTabChanged(){
+
         }
     }
 })

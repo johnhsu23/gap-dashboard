@@ -48,6 +48,10 @@ $(document).ready(function(){
                 $("#data-rows tr:nth-last-child(2) .cross-tab").on("change", function(){                    
                     $(this).parents("tr").find("td > img").show();
                 })
+                $("#data-rows tr:nth-last-child(2) .simple-graph").on("click", function(){
+                    alert("simple graph clicked");
+                    //$(this).parents("tr").find("td > img").show();
+                })
             }
         })
 

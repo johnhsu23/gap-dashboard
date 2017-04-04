@@ -28,8 +28,14 @@ $(document).ready(function(){
             if($("#" + id).val() != "" && $("#" + otherId).val() == ""){                
                 var attributeId = collection.getAttributeByAttributeValue($("#" + id).val());                
                 var html = collection.getHtmlOptionsIncluding([attributeId], [$("#" + id).val()]);
-            }else if($("#" + id).val() == "" && $("#" + otherId).val() == ""){                
+            }else if($("#" + id).val() == "" && $("#" + otherId).val() == ""){
                 var html = collection.getHtmlOptionsExcluding(["jurisdiction", "grade"]);
+            }else if($("#" + id).val() != "" && $("#" + otherId).val() != ""){
+                var attributeId = collection.getAttributeByAttributeValue($("#" + id).val());
+                var otherAttributeId = collection.getAttributeByAttributeValue($("#" + otherId).val());
+                if(attributeId != otherAttributeId){
+                    var html = collection.getHtmlOptionsIncluding([attributeId], [$("#" + id).val()]);
+                }
             }
             $("#" + otherId).html(html);           
         }

@@ -67,6 +67,10 @@ td {
 	opacity: 0;
 	transition: .5s ease;
 	background-color: #ccc;
+	border: 1px solid #666;
+}
+td:last-child .overlay {
+	left: 53px;
 }
 td:hover .overlay {
 	opacity: 1;

@@ -3,10 +3,10 @@ $(document).ready(function(){
     loadEvents();
 
     function main(){
-        var serializedAttributes = [{id: "jurisdiction", label: "Jurisdiction", values: [{id: "np", label: "National Public"}, {id: "alaska", label: "Alaska"}]}, {id: "grade", label: "Grade", values: [{id: "grade4", label: "Grade 4"}, {id: "grade8", label: "Grade 8"}, {id: "grade12", label: "Grade 12"}]}, {id: "race", label: "Race", values: [{id: "white", label: "White"}, {id: "black", label: "Black"}, {id: "asian", label: "Asian"}, {id: "hispanic", label: "Hispanic"}]}, {id: "nslp", label: "NSLP Eligibility", values: [{id: "eligibleNslp", label: "Eligible for NSLP"}, {id: "notEligibleNslp", label: "Not eligible for NSLP"}]}]
+        var serializedAttributes = [{id: "jurisdiction", label: "Jurisdiction", values: [{id: "np", label: "National Public"}, {id: "alaska", label: "Alaska"}]}, {id: "grade", label: "Grade", values: [{id: "grade4", label: "Grade 4"}, {id: "grade8", label: "Grade 8"}, {id: "grade12", label: "Grade 12"}]}, {id: "race", label: "Race", values: [{id: "white", label: "White"}, {id: "black", label: "Black"}, {id: "asian", label: "Asian/Pacific Islander"}, {id: "americanIndian", label: "American Indian/Alaska Native"}, {id: "hispanic", label: "Hispanic"}]}, {id: "gender", label: "Gender", values: [{id: "male", label: "Male"}, {id: "female", label: "Female"}]}, {id: "nslp", label: "NSLP Eligibility", values: [{id: "eligibleNslp", label: "Eligible for NSLP"}, {id: "notEligibleNslp", label: "Not eligible for NSLP"}, {id: "nslpNotEnoughInformation", label: "Not enough information"}]}, {id: "nslp", label: "NSLP Eligibility", values: [{id: "eligibleNslp", label: "Eligible for NSLP"}, {id: "notEligibleNslp", label: "Not eligible for NSLP"}, {id: "nslpNotEnoughInformation", label: "Not enough information"}]}]
         var collection = new AttributeCollection(serializedAttributes);
         
-        $("#AddRowButton").data("collection", collection);
+        $("button.add-new").data("collection", collection);
 
         // alert(collection.attributes[1].id);
         // alert(collection.attributes[1].label);
@@ -19,17 +19,17 @@ $(document).ready(function(){
     }
 
     function loadEvents(){
-        $("#AddRowButton").click(function(){
+        $("button.add-new").click(function(){
             var clone = $(this).data("collection").getClone();
             var $attribute1 = $("#attribute1");
             var $attribute2 = $("#attribute2");
             if($attribute1.val() != "" && $attribute2.val() != ""){
                 var html = "<tr>" + $(".template").html() + "</tr>";
-                $("#data-rows").append(html);
-                var collection = $("#AddRowButton").data("collection");
+                $("#data-rows tr:last()").before(html);
+                var collection = $("button.add-new").data("collection");
                 var attributeId = collection.getAttributeByAttributeValue($attribute1.val());                
                 html = collection.getHtmlOptionsExcluding(["jurisdiction", "grade", attributeId]);
-                $("#data-rows tr:last() .u-full-width").html(html);
+                $("#data-rows tr:nth-last-child(2) .u-full-width").html(html);
             }
         })
         $(".select-attribute").on("change", function(){
@@ -37,7 +37,7 @@ $(document).ready(function(){
             attributeChanged($(this).attr("id"), otherId);
         })
         function attributeChanged(id, otherId){
-            var collection = $("#AddRowButton").data("collection");
+            var collection = $("button.add-new").data("collection");
             if($("#" + id).val() != "" && $("#" + otherId).val() == ""){                
                 var attributeId = collection.getAttributeByAttributeValue($("#" + id).val());                
                 var html = collection.getHtmlOptionsIncluding([attributeId], [$("#" + id).val()]);

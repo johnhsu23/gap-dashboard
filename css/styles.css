@@ -66,7 +66,7 @@ td {
 	width: 148px;
 	opacity: 0;
 	transition: .5s ease;
-	background-color: #ccc;
+	background-color: #bbb;
 	border: 1px solid #666;
 }
 td:last-child .overlay {
@@ -76,7 +76,8 @@ td:hover .overlay {
 	opacity: 1;
 }
 .text {
-	font-size: 0.8em;
+	color: #fff;
+	font-size: 1.5em;
 	position: absolute;
 	top: 50%;
 	left: 50%;

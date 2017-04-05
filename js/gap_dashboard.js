@@ -40,6 +40,7 @@ $(document).ready(function(){
             $("#" + otherId).html(html);           
         }
 
+        //Add new row button clicked
         $("button.add-new").click(function(){
             var clone = $(this).data("collection").getClone();
             var $attribute1 = $("#attribute1");
@@ -58,6 +59,10 @@ $(document).ready(function(){
                     alert("simple graph clicked");
                     //$(this).parents("tr").find("td > img").show();
                 })
+                $("#data-rows tr:nth-last-child(2) .click-it").on("click", function(){
+                  alert("click");
+                  $(".show-it").toggle("slow");
+                });
             }
         })
 

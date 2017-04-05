@@ -56,7 +56,7 @@ table tbody tr td.full-length {
 td {
 	position: relative;
 }
-.click-it {
+/*.click-it {
 	position: absolute;
 	top: 12px;
 	bottom: 0;
@@ -84,8 +84,8 @@ td:hover .click-it {
 	left: 50%;
 	transform: translate(-50%, -50%);
 	-ms-transform: translate(-50%, -50%);
-}
-.details:hover {
+}*/
+.click-it:hover {
 	box-shadow: 0 0 3px #515151;
 }
 button.add-new {

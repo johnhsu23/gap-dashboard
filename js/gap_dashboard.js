@@ -59,8 +59,8 @@ $(document).ready(function(){
                     alert("simple graph clicked");
                     //$(this).parents("tr").find("td > img").show();
                 })
-                $("#data-rows tr:nth-last-child(2) .click-it").on("click", function(){
-                  alert("click");
+                //alert("overlay " + $("#data-rows tr:nth-last-child(2) .click-it").length);
+                $("#data-rows tr:nth-last-child(2) .click-it").on("click", function(){                  
                   $(".show-it").toggle("slow");
                 });
             }

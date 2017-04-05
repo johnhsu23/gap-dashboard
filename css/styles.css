@@ -56,40 +56,11 @@ table tbody tr td.full-length {
 td {
 	position: relative;
 }
-/*.click-it {
-	position: absolute;
-	top: 12px;
-	bottom: 0;
-	left: 46px;
-	right: 0;
-	height: 116px;
-	width: 148px;
-	cursor: pointer;
-	opacity: 0;
-	transition: .5s ease;
-	background-color: #bbb;
-	border: 1px solid #666;
-}
-td:last-child .click-it {
-	left: 53px;
-}
-td:hover .click-it {
-	opacity: 1;
-}
-.text {
-	color: #fff;
-	font-size: 1.5em;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	-ms-transform: translate(-50%, -50%);
-}*/
 .click-it:hover {
-	box-shadow: 0 0 3px #515151;
+	box-shadow: 0 0 2px #000;
 }
 button.add-new {
-	background: #ebebeb;
+	background: #f0f0f0;
 	padding: 0 1em;
 }
 button.add-new:hover {
@@ -98,6 +69,9 @@ button.add-new:hover {
 .top-block {
 	float: left;
 	width: 100%;
+	padding: 0.5em;
+	background: #f0f0f0;
+	border-radius: 3px;
 }
 .top-block .unit {
 	width: 23%;

@@ -3,7 +3,7 @@ $(document).ready(function(){
     loadEvents();
 
     function main(){
-        var serializedAttributes = [{id: "jurisdiction", label: "Jurisdiction", values: [{id: "np", label: "National Public"}, {id: "alaska", label: "Alaska"}]}, {id: "grade", label: "Grade", values: [{id: "grade4", label: "Grade 4"}, {id: "grade8", label: "Grade 8"}, {id: "grade12", label: "Grade 12"}]}, {id: "race", label: "Race", values: [{id: "white", label: "White"}, {id: "black", label: "Black"}, {id: "asian", label: "Asian/Pacific Islander"}, {id: "americanIndian", label: "American Indian/Alaska Native"}, {id: "hispanic", label: "Hispanic"}]}, {id: "gender", label: "Gender", values: [{id: "male", label: "Male"}, {id: "female", label: "Female"}]}, {id: "nslp", label: "NSLP Eligibility", values: [{id: "eligibleNslp", label: "Eligible for NSLP"}, {id: "notEligibleNslp", label: "Not eligible for NSLP"}, {id: "nslpNotEnoughInformation", label: "Information not available"}]}, {id: "parEd", label: "Parental Education Level", values: [{id: "parEdNoHS", label: "Did not finish high school"}, {id: "parEdHS", label: "Gradudated from high school"}, {id: "parEdSomeEdAfterHS", label: "Some education after high school"}, {id: "parEdCollege", label: "Graducated from college"}, {id: "parEdUnknown", label: "Unknown"}]}]
+        var serializedAttributes = [{id: "overall", label: "Overall", values: [{id: "overall", label: "Overall"}]}, {id: "jurisdiction", label: "Jurisdiction", values: [{id: "np", label: "National Public"}, {id: "alaska", label: "Alaska"}]}, {id: "grade", label: "Grade", values: [{id: "grade4", label: "Grade 4"}, {id: "grade8", label: "Grade 8"}, {id: "grade12", label: "Grade 12"}]}, {id: "race", label: "Race", values: [{id: "white", label: "White"}, {id: "black", label: "Black"}, {id: "asian", label: "Asian/Pacific Islander"}, {id: "americanIndian", label: "American Indian/Alaska Native"}, {id: "hispanic", label: "Hispanic"}]}, {id: "gender", label: "Gender", values: [{id: "male", label: "Male"}, {id: "female", label: "Female"}]}, {id: "nslp", label: "NSLP Eligibility", values: [{id: "eligibleNslp", label: "Eligible for NSLP"}, {id: "notEligibleNslp", label: "Not eligible for NSLP"}, {id: "nslpNotEnoughInformation", label: "Information not available"}]}, {id: "parEd", label: "Parental Education Level", values: [{id: "parEdNoHS", label: "Did not finish high school"}, {id: "parEdHS", label: "Gradudated from high school"}, {id: "parEdSomeEdAfterHS", label: "Some education after high school"}, {id: "parEdCollege", label: "Graducated from college"}, {id: "parEdUnknown", label: "Unknown"}]}]
         var collection = new AttributeCollection(serializedAttributes);
         
         $("button.add-new").data("collection", collection);
@@ -14,8 +14,11 @@ $(document).ready(function(){
         // alert(collection.attributes[1].attributeValues[0].label);;
         
         $("#jurisdiction").html(collection.getHtmlOptionsIncluding(["jurisdiction"]));
-        $("#attribute1").html(collection.getHtmlOptionsExcluding(["jurisdiction", "grade"]));
-        $("#attribute2").html(collection.getHtmlOptionsExcluding(["jurisdiction", "grade"]));
+        $("#attribute1").html(collection.getHtmlOptionsExcluding(["overall", "jurisdiction", "grade"]));
+        $("#attribute2").html(collection.getHtmlOptionsExcluding(["overall", "jurisdiction", "grade"]));
+        $(".cross-tab").html(collection.getHtmlOptionsIncluding(["overall"]));
+        $(".cross-tab").val("overall");
+        $(".cross-tab").attr("disabled", true);
     }
 
     function loadEvents(){        
@@ -59,8 +62,8 @@ $(document).ready(function(){
                     alert("simple graph clicked");
                     //$(this).parents("tr").find("td > img").show();
                 })
-                $("#data-rows tr:nth-last-child(2) .click-it").on("click", function(){
-                  alert("click");
+                //alert("overlay " + $("#data-rows tr:nth-last-child(2) .click-it").length);
+                $("#data-rows tr:nth-last-child(2) .click-it").on("click", function(){                  
                   $(".show-it").toggle("slow");
                 });
             }

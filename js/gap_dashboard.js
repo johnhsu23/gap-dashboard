@@ -16,9 +16,9 @@ $(document).ready(function(){
         $("#jurisdiction").html(collection.getHtmlOptionsIncluding(["jurisdiction"]));
         $("#attribute1").html(collection.getHtmlOptionsExcluding(["overall", "jurisdiction", "grade"]));
         $("#attribute2").html(collection.getHtmlOptionsExcluding(["overall", "jurisdiction", "grade"]));
-        $(".cross-tab").html(collection.getHtmlOptionsIncluding(["overall"]));
-        $(".cross-tab").val("overall");
-        $(".cross-tab").attr("disabled", true);
+        $(".cross-tab").html(collection.getHtmlOptionsExcluding([""]));
+        //$(".cross-tab").val("overall");
+        //$(".cross-tab").attr("disabled", true);
     }
 
     function loadEvents(){        

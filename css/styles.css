@@ -74,11 +74,14 @@ button.add-new:hover {
 	border-radius: 3px;
 }
 .top-block .unit {
-	width: 23%;
+	width: 20%;
+	vertical-align: middle;
 	padding: 0;
 	margin-left: 1em;
 	float: left;
 }
+.top-block .unit:first-child,
+.top-block .unit:last-child { width: 15%;}
 .top-block:after, .unit:after {
 	clear: both;
 	content: "";

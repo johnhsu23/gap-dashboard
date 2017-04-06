@@ -57,7 +57,7 @@ td {
 	position: relative;
 }
 .click-it:hover {
-	box-shadow: 0 0 2px #000;
+	box-shadow: 0 0 7px #000;
 }
 button.add-new {
 	background: #f0f0f0;

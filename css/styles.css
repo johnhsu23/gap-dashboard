@@ -59,6 +59,7 @@ td {
 .click-it:hover {
 	box-shadow: 0 0 7px #000;
 }
+.show-it { display: none; }
 button.add-new {
 	background: #f0f0f0;
 	padding: 0 1em;
@@ -66,25 +67,17 @@ button.add-new {
 button.add-new:hover {
 	opacity: 0.5;
 }
-.top-block {
-	float: left;
-	width: 100%;
+.options {
+	background: #f0f0f0;
 	padding: 0.5em;
 	background: #f0f0f0;
-	border-radius: 3px;
+	border-radius: 5px;
 }
-.top-block .unit {
-	width: 20%;
-	vertical-align: middle;
-	padding: 0;
-	margin-left: 1em;
-	float: left;
-}
-.top-block .unit:first-child,
-.top-block .unit:last-child { width: 15%;}
-.top-block:after, .unit:after {
-	clear: both;
-	content: "";
+button.add-one {
+  background: #fff;
+  padding: 0 1em;
+  margin-top: 2.7em;
+  margin-left: 1em;
 }
 
 /* skelton over rides */

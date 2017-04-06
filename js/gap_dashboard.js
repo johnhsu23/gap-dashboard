@@ -19,6 +19,8 @@ $(document).ready(function(){
         $(".cross-tab").html(collection.getHtmlOptionsExcluding([""]));
         //$(".cross-tab").val("overall");
         //$(".cross-tab").attr("disabled", true);
+        template = $("#data-rows tbody").html();
+        $("#data-rows tbody").html("");                
     }
 
     function loadEvents(){        
@@ -48,9 +50,9 @@ $(document).ready(function(){
             var clone = $(this).data("collection").getClone();
             var $attribute1 = $("#attribute1");
             var $attribute2 = $("#attribute2");
-            if($attribute1.val() != "" && $attribute2.val() != ""){
-                var html = "<tr>" + $(".template").html() + "</tr>";
-                $("#data-rows tr:last()").before(html);
+            if($attribute1.val() != "" && $attribute2.val() != ""){                
+                //var html = "<tr>" + $(".template").html() + "</tr>";
+                $("#data-rows tr:last()").before(template);
                 var collection = $("button.add-new").data("collection");
                 var attributeId = collection.getAttributeByAttributeValue($attribute1.val());                
                 html = collection.getHtmlOptionsExcluding(["jurisdiction", "grade", attributeId]);

@@ -6,7 +6,7 @@ $(document).ready(function(){
         var serializedAttributes = [{id: "overall", label: "Overall", values: [{id: "overall", label: "Overall"}]}, {id: "jurisdiction", label: "Jurisdiction", values: [{id: "np", label: "National Public"}, {id: "alaska", label: "Alaska"}]}, {id: "grade", label: "Grade", values: [{id: "grade4", label: "Grade 4"}, {id: "grade8", label: "Grade 8"}, {id: "grade12", label: "Grade 12"}]}, {id: "race", label: "Race", values: [{id: "white", label: "White"}, {id: "black", label: "Black"}, {id: "asian", label: "Asian/Pacific Islander"}, {id: "americanIndian", label: "American Indian/Alaska Native"}, {id: "hispanic", label: "Hispanic"}]}, {id: "gender", label: "Gender", values: [{id: "male", label: "Male"}, {id: "female", label: "Female"}]}, {id: "nslp", label: "NSLP Eligibility", values: [{id: "eligibleNslp", label: "Eligible for NSLP"}, {id: "notEligibleNslp", label: "Not eligible for NSLP"}, {id: "nslpNotEnoughInformation", label: "Information not available"}]}, {id: "parEd", label: "Parental Education Level", values: [{id: "parEdNoHS", label: "Did not finish high school"}, {id: "parEdHS", label: "Gradudated from high school"}, {id: "parEdSomeEdAfterHS", label: "Some education after high school"}, {id: "parEdCollege", label: "Graducated from college"}, {id: "parEdUnknown", label: "Unknown"}]}]
         var collection = new AttributeCollection(serializedAttributes);
         
-        $("button.add-new").data("collection", collection);
+        $("body").data("collection", collection);
 
         // alert(collection.attributes[1].id);
         // alert(collection.attributes[1].label);
@@ -20,6 +20,7 @@ $(document).ready(function(){
         //$(".cross-tab").val("overall");
         //$(".cross-tab").attr("disabled", true);
         template = $("#data-rows tbody").html();
+        rowTemplate = $(".template").html();        
         $("#data-rows tbody").html("");                
     }
 
@@ -29,7 +30,7 @@ $(document).ready(function(){
             attributeChanged($(this).attr("id"), otherId);
         })
         function attributeChanged(id, otherId){
-            var collection = $("button.add-new").data("collection");
+            var collection = $("body").data("collection");
             if($("#" + id).val() != "" && $("#" + otherId).val() == ""){                
                 var attributeId = collection.getAttributeByAttributeValue($("#" + id).val());                
                 var html = collection.getHtmlOptionsIncluding([attributeId], [$("#" + id).val()]);
@@ -46,28 +47,34 @@ $(document).ready(function(){
         }
 
         //Add new row button clicked
-        $("button.add-new").click(function(){
-            var clone = $(this).data("collection").getClone();
+        $("button.add-one").click(function(){
+            var clone = $("body").data("collection").getClone();
             var $attribute1 = $("#attribute1");
             var $attribute2 = $("#attribute2");
-            if($attribute1.val() != "" && $attribute2.val() != ""){                
+            if($attribute1.val() != "" && $attribute2.val() != ""){
                 //var html = "<tr>" + $(".template").html() + "</tr>";
-                $("#data-rows tr:last()").before(template);
-                var collection = $("button.add-new").data("collection");
+                $("#data-rows").append(template);
+                var collection = $("body").data("collection");
                 var attributeId = collection.getAttributeByAttributeValue($attribute1.val());                
+                $("#data-rows tr:nth-last-child(3) th").html("Overall");                                
+                $("#data-rows tr:nth-last-child(3) td > img").show();
+                
+                $("#data-rows tr:nth-last-child(3) td img").on("click", function(){                    
+                    $(this).parents("tr").next("tr.show-it").toggle();                    
+                })
                 html = collection.getHtmlOptionsExcluding(["jurisdiction", "grade", attributeId]);
-                $("#data-rows tr:nth-last-child(2) .u-full-width").html(html);
-                $("#data-rows tr:nth-last-child(2) .cross-tab").on("change", function(){                    
-                    $(this).parents("tr").find("td > img").show();
+                $("#data-rows tr:last() .add-new").on("click", function(){
+                    $(this).parents("tr").before(template);
+                    $(this).parents("tr").prev("tr").remove();       
+                    $(this).parents("tr").prev("tr").prev("tr").find(".cross-tab").html(collection.getHtmlOptionsExcluding(["overall"]));                                 
+                    $(this).parents("tr").prev("tr").prev("tr").find(".cross-tab").on("change", function(){                        
+                        $(this).parents("tr").find("td img").show();                        
+                    })
+                    //alert($(this).parents("tr").prev("tr").prev("tr").find("td img").length);
+                    $(this).parents("tr").prev("tr").prev("tr").find("td img").on("click", function(){
+                        $(this).parents("tr").next("tr.show-it").toggle();      
+                    })
                 })
-                $("#data-rows tr:nth-last-child(2) .simple-graph").on("click", function(){
-                    alert("simple graph clicked");
-                    //$(this).parents("tr").find("td > img").show();
-                })
-                //alert("overlay " + $("#data-rows tr:nth-last-child(2) .click-it").length);
-                $("#data-rows tr:nth-last-child(2) .click-it").on("click", function(){                  
-                  $(".show-it").toggle("slow");
-                });
             }
         })
 
